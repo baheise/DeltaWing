@@ -1,0 +1,138 @@
+# encoding: utf-8
+# 2019 R1
+SetScriptVersion(Version="19.3.111")
+system1 = GetSystem(Name="SYS")
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit()
+geometry1.Exit()
+designPoint1 = Parameters.GetDesignPoint(Name="0")
+parameter1 = Parameters.GetParameter(Name="P4")
+designPoint1.SetParameterExpression(
+    Parameter=parameter1,
+    Expression="0.03 [m]")
+parameter2 = Parameters.GetParameter(Name="P3")
+designPoint1.SetParameterExpression(
+    Parameter=parameter2,
+    Expression="0.06 [m]")
+parameter3 = Parameters.GetParameter(Name="P2")
+designPoint1.SetParameterExpression(
+    Parameter=parameter3,
+    Expression="0.12 [m]")
+parameter4 = Parameters.GetParameter(Name="P1")
+designPoint1.SetParameterExpression(
+    Parameter=parameter4,
+    Expression="0.18 [m]")
+designPoint1.SetParameterExpression(
+    Parameter=parameter3,
+    Expression="0.11 [m]")
+parameter5 = Parameters.GetParameter(Name="P5")
+designPoint1.SetParameterExpression(
+    Parameter=parameter5,
+    Expression="0.001 [m]")
+parameter6 = Parameters.GetParameter(Name="P6")
+designPoint1.SetParameterExpression(
+    Parameter=parameter6,
+    Expression="0.001 [m]")
+parameter7 = Parameters.GetParameter(Name="P7")
+designPoint1.SetParameterExpression(
+    Parameter=parameter7,
+    Expression="0.001 [m]")
+parameter8 = Parameters.GetParameter(Name="P8")
+designPoint1.SetParameterExpression(
+    Parameter=parameter8,
+    Expression="0.001 [m]")
+designPoint1.SetParameterExpression(
+    Parameter=parameter5,
+    Expression="0.0015 [m]")
+designPoint1.SetParameterExpression(
+    Parameter=parameter6,
+    Expression="0.0015 [m]")
+designPoint1.SetParameterExpression(
+    Parameter=parameter7,
+    Expression="0.0015 [m]")
+designPoint1.SetParameterExpression(
+    Parameter=parameter8,
+    Expression="0.0015 [m]")
+parameter9 = Parameters.GetParameter(Name="P11")
+designPoint1.SetParameterExpression(
+    Parameter=parameter9,
+    Expression="0.0015 [m]")
+system2 = GetSystem(Name="RSR")
+designofExperiment1 = system2.GetContainer(ComponentName="Design of Experiment")
+dOEModel1 = designofExperiment1.GetModel()
+inputParameter1 = dOEModel1.GetParameter(Name="P4")
+inputParameter1.LowerBound = 0.01
+inputParameter1.UpperBound = 0.04
+inputParameter1.LowerBound = 0.02
+inputParameter1.UpperBound = 0.045
+inputParameter1.LowerBound = 0.015
+inputParameter2 = dOEModel1.GetParameter(Name="P3")
+inputParameter2.UpperBound = 0.05
+inputParameter2.LowerBound = 0.05
+inputParameter2.UpperBound = 0.07
+inputParameter1.LowerBound = 0.02
+inputParameter1.UpperBound = 0.04
+inputParameter3 = dOEModel1.GetParameter(Name="P2")
+inputParameter3.LowerBound = 0.08
+inputParameter3.UpperBound = 0.14
+inputParameter4 = dOEModel1.GetParameter(Name="P1")
+inputParameter4.LowerBound = 0.15
+inputParameter4.UpperBound = 0.21
+inputParameter5 = dOEModel1.GetParameter(Name="P5")
+inputParameter5.LowerBound = 0.002
+inputParameter5.UpperBound = 0.0025
+inputParameter5.LowerBound = 0.001
+inputParameter5.UpperBound = 0.002
+inputParameter6 = dOEModel1.GetParameter(Name="P6")
+inputParameter6.LowerBound = 0.001
+inputParameter6.UpperBound = 0.002
+inputParameter7 = dOEModel1.GetParameter(Name="P7")
+inputParameter7.LowerBound = 0.001
+inputParameter8 = dOEModel1.GetParameter(Name="P8")
+inputParameter8.LowerBound = 0.001
+designofExperimentComponent1 = system2.GetComponent(Name="Design of Experiment")
+designofExperimentComponent1.Refresh()
+inputParameter9 = dOEModel1.GetParameter(Name="P11")
+inputParameter9.LowerBound = 0.001
+inputParameter9.UpperBound = 0.002
+designofExperimentComponent1.Update(AllDependencies=True)
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+setupComponent1 = system1.GetComponent(Name="Setup")
+setupComponent1.Refresh()
+solutionComponent1 = system1.GetComponent(Name="Solution")
+solutionComponent1.Refresh()
+resultsComponent1 = system1.GetComponent(Name="Results")
+resultsComponent1.Refresh()
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Exit()
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+geometryComponent1.Update(AllDependencies=True)
+modelComponent1.Refresh()
+setupComponent1.Refresh()
+solutionComponent1.Refresh()
+resultsComponent1.Refresh()
+results1.Edit()
+model1.Exit()
+designofExperimentComponent1.Update(AllDependencies=True)
+responseSurfaceComponent1 = system2.GetComponent(Name="Response Surface")
+responseSurfaceComponent1.Update(AllDependencies=True)
+responseSurface1 = system2.GetContainer(ComponentName="Response Surface")
+responseSurfaceModel1 = responseSurface1.GetModel()
+parametricTable1 = responseSurfaceModel1.GetParametricTable(Name="DesignPoints")
+parametricTable1.UpdateRows(Indices=[104])
+parametricTable1.UpdateRows(Indices=[104])
+parametricTable1.UpdateRows(Indices=[104])
+parametricTable1.UpdateRows(Indices=[104])
+parametricTable1.UpdateRows(Indices=[104])
+chart1 = responseSurfaceModel1.GetChart(Name="PredictedvsObservedScatter")
+chart1.ShowLearningPoints = False
+chart1.ShowLearningPoints = True
+chart1.DisplayParameterFullName = False
+chart1.DisplayParameterFullName = True
+parametricTable1.UpdateRows(Indices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299])
+responseSurfaceComponent1.Update(AllDependencies=True)
+Save(Overwrite=True)
+Save(Overwrite=True)

@@ -1,0 +1,67 @@
+# encoding: utf-8
+# Release 19.1
+SetScriptVersion(Version="19.1.103")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit()
+geometry1.Exit()
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+geometry1.Edit()
+geometry1.Exit()
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+geometryComponent1.Update(AllDependencies=True)
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+geometry1.Edit()
+Save(Overwrite=True)
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+geometry1.Edit()
+geometry1.Exit()
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+template2 = GetTemplate(TemplateName="Response Surface")
+system2 = template2.CreateSystem()
+Save(Overwrite=True)
+designofExperimentComponent1 = system2.GetComponent(Name="Design of Experiment")
+designofExperimentComponent1.Update(AllDependencies=True)
+designofExperiment1 = system2.GetContainer(ComponentName="Design of Experiment")
+dOEModel1 = designofExperiment1.GetModel()
+inputParameter1 = dOEModel1.GetParameter(Name="P1")
+inputParameter1.LowerBound = 0.16
+inputParameter1.LowerBound = 0.18
+inputParameter2 = dOEModel1.GetParameter(Name="P2")
+inputParameter2.LowerBound = 0.13
+inputParameter2.UpperBound = 0.17
+inputParameter3 = dOEModel1.GetParameter(Name="P3")
+inputParameter3.LowerBound = 0.08
+inputParameter3.UpperBound = 0.12
+inputParameter4 = dOEModel1.GetParameter(Name="P4")
+inputParameter4.LowerBound = 0.03
+inputParameter4.UpperBound = 0.07
+inputParameter5 = dOEModel1.GetParameter(Name="P5")
+inputParameter5.LowerBound = 0.0005
+inputParameter5.UpperBound = 0.002
+inputParameter6 = dOEModel1.GetParameter(Name="P6")
+inputParameter6.LowerBound = 0.0005
+inputParameter6.UpperBound = 0.002
+inputParameter7 = dOEModel1.GetParameter(Name="P7")
+inputParameter7.LowerBound = 0.0005
+inputParameter7.UpperBound = 0.002
+inputParameter8 = dOEModel1.GetParameter(Name="P8")
+inputParameter8.LowerBound = 0.0005
+inputParameter8.UpperBound = 0.002
+dOEModel1.MethodName = "ANSYS_OSFD"
+designPointsTable1 = dOEModel1.PreviewDesignPoints()
+designofExperimentComponent1.Update(AllDependencies=True)
+Save(Overwrite=True)

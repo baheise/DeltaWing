@@ -1,0 +1,75 @@
+# encoding: utf-8
+# 2019 R1
+SetScriptVersion(Version="19.3.111")
+template1 = GetTemplate(TemplateName="Response Surface Optimization")
+system1 = GetSystem(Name="RSR")
+system2 = template1.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+designofExperimentComponent1 = system2.GetComponent(Name="Design of Experiment")
+designofExperimentComponent2 = system1.GetComponent(Name="Design of Experiment")
+designofExperimentComponent1.ReplaceWithShare(
+    TargetSystem=system2,
+    ComponentToShare=designofExperimentComponent2,
+    SourceSystem=system1)
+designofExperimentComponent1.DeleteShare(System=system2)
+designofExperimentComponent1.ReplaceWithShare(
+    TargetSystem=system2,
+    ComponentToShare=designofExperimentComponent2,
+    SourceSystem=system1)
+responseSurfaceComponent1 = system2.GetComponent(Name="Response Surface")
+responseSurfaceComponent2 = system1.GetComponent(Name="Response Surface")
+responseSurfaceComponent1.ReplaceWithShare(
+    TargetSystem=system2,
+    ComponentToShare=responseSurfaceComponent2,
+    SourceSystem=system1)
+system3 = GetSystem(Name="SYS")
+geometry1 = system3.GetContainer(ComponentName="Geometry")
+geometry1.Edit()
+geometry1.Exit()
+designofExperiment1 = system1.GetContainer(ComponentName="Design of Experiment")
+dOEModel1 = designofExperiment1.GetModel()
+inputParameter1 = dOEModel1.GetParameter(Name="P1")
+inputParameter1.LowerBound = 0.16
+inputParameter1.UpperBound = 0.2
+inputParameter2 = dOEModel1.GetParameter(Name="P2")
+inputParameter2.LowerBound = 0.11
+inputParameter2.UpperBound = 0.15
+inputParameter3 = dOEModel1.GetParameter(Name="P3")
+inputParameter3.LowerBound = 0.06
+inputParameter3.UpperBound = 0.1
+inputParameter4 = dOEModel1.GetParameter(Name="P4")
+inputParameter4.LowerBound = 0.01
+inputParameter4.UpperBound = 0.05
+inputParameter4.LowerBound = 0.02
+designofExperimentComponent2.Update(AllDependencies=True)
+responseSurface1 = system1.GetContainer(ComponentName="Response Surface")
+responseSurfaceModel1 = responseSurface1.GetModel()
+responseSurfaceModel1.MaximumRelativeErrorSparseGrid = 3
+responseSurfaceModel1.MaxNumberRefinementPointsSparseGrid = 300
+responseSurfaceModel1.NumberVerificationPoints = 50
+responseSurfaceComponent2.Update(AllDependencies=True)
+Save(Overwrite=True)
+optimization1 = system2.GetContainer(ComponentName="Optimization")
+optimizationModel1 = optimization1.GetModel()
+inputParameter5 = optimizationModel1.GetParameter(Name="P1")
+optimizationCriterion1 = inputParameter5.CreateOptimizationCriterion()
+optimizationModel1.DeleteOptimizationCriteria(OptimizationCriteria=[optimizationCriterion1])
+outputParameter1 = optimizationModel1.GetParameter(Name="P9")
+optimizationCriterion2 = outputParameter1.CreateOptimizationCriterion()
+optimizationCriterion2.ConstraintType = "CT_LessThanTarget"
+optimizationCriterion2.ConstraintFirstValue = 0.04
+outputParameter2 = optimizationModel1.GetParameter(Name="P10")
+optimizationCriterion3 = outputParameter2.CreateOptimizationCriterion()
+optimizationCriterion3.ObjectiveType = "GT_MinimumPossible"
+optimizationModel1.MethodSelection = "OMS_Manual"
+optimizationModel1.MethodName = "ANSYS_NLPQL"
+optimizationModel1.VerifyCandidatePoints = True
+optimizationModel1.VerifyCandidatePoints = False
+optimizationModel1.VerifyCandidatePoints = True
+nlpqlOptimization1 = optimizationModel1.Method
+nlpqlOptimization1.MaxNumIterations = 50
+nlpqlOptimization1.MaxNumIterations = 20
+optimizationComponent1 = system2.GetComponent(Name="Optimization")
+optimizationComponent1.Update(AllDependencies=True)
+Save(Overwrite=True)
